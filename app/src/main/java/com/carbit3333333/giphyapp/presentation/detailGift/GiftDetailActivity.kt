@@ -28,6 +28,7 @@ class GiftDetailActivity : BaseActivity() {
             pager.visibility = View.VISIBLE
             pager.setCurrentItem(fromGiftPosition, false)
         })
+
         pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)

@@ -6,26 +6,33 @@ import androidx.paging.PagedList
 import com.carbit3333333.giphyapp.entity.SingleGiphy
 import com.carbit3333333.giphyapp.repository.NetworkState
 import com.carbit3333333.giphyapp.repository.allGiphyRepo.GiftPagedListRepository
+import com.carbit3333333.giphyapp.repository.allGiphyRepo.GiftSerachPagedListRepository
 import com.carbit3333333.giphyapp.repository.singleGiftRepo.GiftDetailsRepository
 import com.carbit3333333.giphyapp.widjet.SingleLiveEvent
 import javax.inject.Inject
 
-class GiphyViewModel @Inject constructor(private val mGiftPagedListRepository: GiftPagedListRepository,
-private val mGiftDetailsRepository: GiftDetailsRepository): ViewModel() {
-    init {
-        getPagedList()
-    }
+class GiphyViewModel @Inject constructor(
+    private val mGiftPagedListRepository: GiftPagedListRepository,
+    private val giftSerachPagedListRepository: GiftSerachPagedListRepository,
+    private val mGiftDetailsRepository: GiftDetailsRepository
+) : ViewModel() {
+
     val networkState: LiveData<NetworkState> by lazy {
-    mGiftPagedListRepository.getNetworkState()
+        mGiftPagedListRepository.getNetworkState()
     }
-    val moviePagedList : LiveData<PagedList<SingleGiphy>> by lazy {
+    val moviePagedList: LiveData<PagedList<SingleGiphy>> by lazy {
         mGiftPagedListRepository.fetchLiveGiftPagedList()
     }
-    fun listIsEmpty(): Boolean{
-        return moviePagedList.value?.isEmpty()?:true
+
+    fun listIsEmpty(): Boolean {
+        return moviePagedList.value?.isEmpty() ?: true
     }
-    fun getPagedList():LiveData<PagedList<SingleGiphy>>{
-       return mGiftPagedListRepository.fetchLiveGiftPagedList()
+
+    fun getPagedList(): LiveData<PagedList<SingleGiphy>> {
+        return mGiftPagedListRepository.fetchLiveGiftPagedList()
+    }
+    fun getSearchPagedList(search: String): LiveData<PagedList<SingleGiphy>>{
+        return giftSerachPagedListRepository.fetchLiveGiftPagedList(search)
     }
 
 }

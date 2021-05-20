@@ -4,6 +4,7 @@ import android.util.Log
 import com.carbit3333333.giphyapp.BuildConfig
 import com.carbit3333333.giphyapp.repository.AppRepository
 import com.carbit3333333.giphyapp.repository.allGiphyRepo.GiftPagedListRepository
+import com.carbit3333333.giphyapp.repository.allGiphyRepo.GiftSerachPagedListRepository
 import com.carbit3333333.giphyapp.repository.api.ApiService
 import com.carbit3333333.giphyapp.repository.api.ServerCommunicator
 import com.carbit3333333.giphyapp.repository.database.AppDatabase
@@ -79,6 +80,10 @@ class ApiModule {
     @Provides
     fun provideGiftDetailsRepository(apiService: ApiService): GiftDetailsRepository {
         return GiftDetailsRepository(apiService)
+    }
+    @Provides
+    fun provideGiftSerachPagedListRepository(apiService: ApiService):GiftSerachPagedListRepository{
+        return GiftSerachPagedListRepository(apiService)
     }
 
 }

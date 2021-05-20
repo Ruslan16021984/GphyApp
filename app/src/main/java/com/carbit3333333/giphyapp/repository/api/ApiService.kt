@@ -11,6 +11,7 @@ interface ApiService {
     companion object {
         const val LIMIT = 20
         const val OFFSET = 0
+        const val G = ""
     }
 
     @GET("gifs/{gift_id}")
@@ -20,6 +21,9 @@ interface ApiService {
     fun getTrendingGiphy(
         @Query("limit") limit: Int,
         @Query("offset") offset: Int
+    ): Single<GiphyResponse>
+    @GET("gifs/search")
+    fun searchGiff( @Query("q") q: String
     ): Single<GiphyResponse>
 
 }
