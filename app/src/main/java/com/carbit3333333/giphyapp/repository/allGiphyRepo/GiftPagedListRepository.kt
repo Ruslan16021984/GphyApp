@@ -10,15 +10,17 @@ import com.carbit3333333.giphyapp.repository.datasource.GiftDataSourceFactory
 import com.carbit3333333.giphyapp.repository.NetworkState
 import com.carbit3333333.giphyapp.repository.api.ApiService
 import com.carbit3333333.giphyapp.repository.api.ApiService.Companion.LIMIT
+import com.carbit3333333.giphyapp.repository.database.AppDatabase
+import io.reactivex.disposables.CompositeDisposable
 
-class GiftPagedListRepository(private val apiService: ApiService) {
+class GiftPagedListRepository(private val apiService: ApiService,private val appDatabase: AppDatabase) {
     lateinit var giftPagedList: LiveData<PagedList<SingleGiphy>>
     lateinit var giftDataSourceFactory: GiftDataSourceFactory
 
-    fun fetchLiveGiftPagedList(): LiveData<PagedList<SingleGiphy>>{
+    fun fetchLiveGiftPagedList(compositeDisposable: CompositeDisposable): LiveData<PagedList<SingleGiphy>>{
         giftDataSourceFactory =
             GiftDataSourceFactory(
-                apiService
+                apiService, appDatabase, compositeDisposable
             )
 
 

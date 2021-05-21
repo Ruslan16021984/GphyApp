@@ -8,5 +8,6 @@ data class SingleGiphy(
     val id: String,
     @SerializedName("images")
     val images: Images,
+    val username: String,
     val url: String
 )

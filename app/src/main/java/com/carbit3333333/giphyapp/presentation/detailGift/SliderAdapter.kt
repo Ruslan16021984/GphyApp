@@ -5,12 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.carbit3333333.giphyapp.R
 import com.carbit3333333.giphyapp.entity.SingleGiphy
+import com.carbit3333333.giphyapp.repository.NetworkState
+import com.carbit3333333.giphyapp.repository.datasource.GiftDataSource
 import kotlinx.android.synthetic.main.fragment_single_giphy.view.*
 
 

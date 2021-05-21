@@ -8,7 +8,7 @@ import com.carbit3333333.giphyapp.repository.NetworkState
 import com.carbit3333333.giphyapp.repository.allGiphyRepo.GiftPagedListRepository
 import com.carbit3333333.giphyapp.repository.allGiphyRepo.GiftSerachPagedListRepository
 import com.carbit3333333.giphyapp.repository.singleGiftRepo.GiftDetailsRepository
-import com.carbit3333333.giphyapp.widjet.SingleLiveEvent
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class GiphyViewModel @Inject constructor(
@@ -16,12 +16,13 @@ class GiphyViewModel @Inject constructor(
     private val giftSerachPagedListRepository: GiftSerachPagedListRepository,
     private val mGiftDetailsRepository: GiftDetailsRepository
 ) : ViewModel() {
+    private val compositeDisposable = CompositeDisposable()
 
     val networkState: LiveData<NetworkState> by lazy {
         mGiftPagedListRepository.getNetworkState()
     }
     val moviePagedList: LiveData<PagedList<SingleGiphy>> by lazy {
-        mGiftPagedListRepository.fetchLiveGiftPagedList()
+        mGiftPagedListRepository.fetchLiveGiftPagedList(compositeDisposable)
     }
 
     fun listIsEmpty(): Boolean {
@@ -29,10 +30,14 @@ class GiphyViewModel @Inject constructor(
     }
 
     fun getPagedList(): LiveData<PagedList<SingleGiphy>> {
-        return mGiftPagedListRepository.fetchLiveGiftPagedList()
+        return mGiftPagedListRepository.fetchLiveGiftPagedList(compositeDisposable)
     }
     fun getSearchPagedList(search: String): LiveData<PagedList<SingleGiphy>>{
         return giftSerachPagedListRepository.fetchLiveGiftPagedList(search)
+    }
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.dispose()
     }
 
 }

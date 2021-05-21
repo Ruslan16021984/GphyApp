@@ -18,14 +18,17 @@ import com.carbit3333333.giphyapp.R
 import com.carbit3333333.giphyapp.presentation.BaseActivity
 import com.carbit3333333.giphyapp.presentation.detailGift.GiftDetailActivity
 import com.carbit3333333.giphyapp.repository.NetworkState
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainListGifActivity : BaseActivity() {
+    private val disposable = CompositeDisposable()
     lateinit var giftsAdapter: TrendingGiftPagedListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         giftsAdapter = this.let { TrendingGiftPagedListAdapter(it) }
         val gridLayoutManager = GridLayoutManager(this, 3)
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {

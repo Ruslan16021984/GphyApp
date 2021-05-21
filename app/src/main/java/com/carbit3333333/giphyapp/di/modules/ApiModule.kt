@@ -74,8 +74,8 @@ class ApiModule {
         return ServerCommunicator(apiService)
     }
     @Provides
-    fun provideGiftPagedListRepository(apiService: ApiService): GiftPagedListRepository {
-        return GiftPagedListRepository(apiService)
+    fun provideGiftPagedListRepository(apiService: ApiService, appDatabase: AppDatabase): GiftPagedListRepository {
+        return GiftPagedListRepository(apiService, appDatabase)
     }
     @Provides
     fun provideGiftDetailsRepository(apiService: ApiService): GiftDetailsRepository {

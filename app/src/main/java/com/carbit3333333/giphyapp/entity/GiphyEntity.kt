@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class GiphyEntity(
         @PrimaryKey
         var id: String,
+        var username: String,
         var url: String
 )

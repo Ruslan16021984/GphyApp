@@ -5,11 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.carbit3333333.giphyapp.R
 import com.carbit3333333.giphyapp.presentation.BaseActivity
+import com.carbit3333333.giphyapp.repository.NetworkState
 import kotlinx.android.synthetic.main.activity_gift_detail.*
+import kotlinx.android.synthetic.main.activity_gift_detail.progress_bar_popular
+import kotlinx.android.synthetic.main.activity_main.*
 
 class GiftDetailActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,10 +29,17 @@ class GiftDetailActivity : BaseActivity() {
         pager.visibility = View.GONE
         viewModel.getPagedList().observe(this, Observer {
             giftsAdapter.submitList(it)
-            pager.visibility = View.VISIBLE
-            pager.setCurrentItem(fromGiftPosition, false)
         })
+        viewModel.networkState.observe(this, Observer {
+            progress_bar_popular.visibility =
+                if (viewModel.listIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
+            if (viewModel.listIsEmpty() && it == NetworkState.LOADING){
 
+            }else{
+                pager.visibility = View.VISIBLE
+                pager.setCurrentItem(fromGiftPosition, false)
+            }
+        })
         pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
