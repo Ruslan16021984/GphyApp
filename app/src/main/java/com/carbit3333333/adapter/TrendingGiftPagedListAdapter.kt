@@ -83,13 +83,13 @@ class TrendingGiftPagedListAdapter(val context: Context): PagedListAdapter<Singl
                 itemView.progress_bar_item.visibility = View.GONE
             }
             if (networkState!= null && networkState == NetworkState.ERORR){
-                itemView.txt_errorm.visibility = View.VISIBLE
-                itemView.txt_errorm.text = networkState.msg
+                itemView.error_msg_item.visibility = View.VISIBLE
+                itemView.error_msg_item.text = networkState.msg
             }else if(networkState!=null && networkState == NetworkState.ENDOFLIST){
-                itemView.txt_errorm.visibility = View.VISIBLE
-                itemView.txt_errorm.text = networkState.msg
+                itemView.error_msg_item.visibility = View.VISIBLE
+                itemView.error_msg_item.text = networkState.msg
             }else{
-                itemView.txt_errorm.visibility = View.GONE
+                itemView.error_msg_item.visibility = View.GONE
             }
         }
     }
